@@ -5,7 +5,21 @@ export const List = props => {
     <div>
       <ul>
         {props.list.map(item => {
-          return <li>{`${item.name} - ${item.artists[0].name}`}</li>;
+          return (
+            <li>
+              <div>
+                {`${item.name} - ${item.artists[0].name}`}
+                <iframe
+                  id="ytplayer"
+                  type="text/html"
+                  width="640"
+                  height="360"
+                  src="http://www.youtube.com/embed/"
+                  frameborder="0"
+                />
+              </div>
+            </li>
+          );
         })}
       </ul>
     </div>

@@ -32,10 +32,11 @@ class App extends React.Component {
       }
     });
 
-    this.setState({ list: res.data.items });
+    const newList = await axios.post('/api/videos', res.data.items);
 
-    const newList = await axios.post('/api/videos', this.state.list);
-    console.log(newList);
+    const list = res.data.items.map((v, i) => (v.videoId = newList[i]));
+    console.log(list);
+    this.setState({ list: res.data.items });
   }
 
   render() {

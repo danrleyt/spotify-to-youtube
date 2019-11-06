@@ -10,20 +10,13 @@ module.exports = app => {
     let list = req.body;
     let youtubeList = [];
     for (let item of list) {
-      youtube.search.list(
-        {
-          part: 'snippet',
-          q: `${item.name} ${item.artists[0].name} live`
-        },
-        (err, data) => {
-          if (err) {
-            console.error('Error: ' + err);
-          }
-          if (data) {
-            console.log(data);
-          }
-        }
-      );
+      const data = await youtube.search.list({
+        part: 'snippet',
+        q: `${item.name} ${item.artists[0].name} live`,
+        maxResults: 1
+      });
+      youtubeList.push(data.data.items[0].id.videoId);
     }
+    res.send(youtubeList);
   });
 };
